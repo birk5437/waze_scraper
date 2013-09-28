@@ -11,14 +11,16 @@ require 'xml'
 url = "http://www.waze.com/rtserver/web/GeoRSS?format=JSON&mj=10&ma=10&jmds=120&jmu=0&left=-9902228.4683365&right=-9233863.0931305&bottom=4707736.5908183&top=5045282.5076653&sc=1733376&pr=Mercator"
 
 
-#uri = URI.parse(url)
-#request = Net::HTTP::Post.new(uri.path)
-#response = Net::HTTP.new(uri.host, uri.port).start{ |http| http.request(request) }
+uri = URI.parse(url)
+request = Net::HTTP::Post.new(uri.path)
+response = Net::HTTP.new(uri.host, uri.port).start{ |http| http.request(request) }
 #puts response.body
-f = File.open("response.txt", 'r')
+f = File.open("response.txt", 'w')
 #doc = Nokogiri::XML(f)
-#f.write(response.body)
-#f.close
+f.write(response.body)
+f.close
+
+f = File.open("response.txt", 'r')
 
 parser = XML::Parser.string(f.read, :options =>XML::Parser::Options::RECOVER)
 

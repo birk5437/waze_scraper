@@ -24,10 +24,20 @@ parser = XML::Parser.string(f.read, :options =>XML::Parser::Options::RECOVER)
 
 #puts doc.at('linqmap:type').detect{ |i| i.text == "POLICEMAN" }
 doc = parser.parse
-doc.find("channel").first.find("item").each do |item|
-  puts item.find("linqmap:type").first
+items = doc.find("channel").first.find("item").select do |item|
+  item.find("linqmap:type").first.content == "POLICEMAN"
   #and just guessing you want that url thingy
   # puts item.find("media:content").first.attributes.get_attribute("url").value
+end
+puts items
+puts items.count
+
+csv_file = File.open("police_locations.csv", 'a')
+
+puts "writing to file"
+
+items.each do |i|
+  csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "\n")
 end
 
 # feed = RSS::Parser.parse(f, false)

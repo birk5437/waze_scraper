@@ -7,6 +7,7 @@ require 'active_support/all'
 require 'net/http'
 require 'nokogiri'
 require 'xml'
+require 'date'
 
 url = "http://www.waze.com/rtserver/web/GeoRSS?format=JSON&mj=10&ma=10&jmds=120&jmu=0&left=-9902228.4683365&right=-9233863.0931305&bottom=4707736.5908183&top=5045282.5076653&sc=1733376&pr=Mercator"
 
@@ -39,7 +40,7 @@ csv_file = File.open("police_locations.csv", 'a')
 #puts "writing to file"
 
 items.each do |i|
-  csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "\n")
+  csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "," + DateTime.now.strftime("%d/%m/%Y %H:%M:%S") + "\n")
 end
 
 # feed = RSS::Parser.parse(f, false)

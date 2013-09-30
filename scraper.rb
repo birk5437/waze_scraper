@@ -31,12 +31,12 @@ items = doc.find("channel").first.find("item").select do |item|
   #and just guessing you want that url thingy
   # puts item.find("media:content").first.attributes.get_attribute("url").value
 end
-puts items
-puts items.count
+#puts items
+#puts items.count
 
 csv_file = File.open("police_locations.csv", 'a')
 
-puts "writing to file"
+#puts "writing to file"
 
 items.each do |i|
   csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "\n")

@@ -1,4 +1,7 @@
 f = File.open("filtered_police_locations.csv", 'w')
+f2 = File.open("heatmap_data.js", "w")
+f2.write("var taxiData = [new google.maps.LatLng(0,0)")
+f2.close
 f.write("")
 f.close
 
@@ -11,6 +14,15 @@ File.open("police_locations.csv", 'r').each_line do |line|
     f = File.open("filtered_police_locations.csv", 'a')
     f.write(line)
     f.close
+
+    f2 = File.open("heatmap_data.js", 'a')
+    f2.write(",")
+    f2.write("\n")
+    f2.write("new google.maps.LatLng(" + data[0] + ", " + data[1] + ")")
+    f2.close
   end
 
 end
+f2 = File.open("heatmap_data.js", 'a')
+f2.write("];")
+f2.close

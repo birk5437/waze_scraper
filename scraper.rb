@@ -40,7 +40,7 @@ csv_file = File.open("police_locations.csv", 'a')
 #puts "writing to file"
 
 items.each do |i|
-  csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "," + DateTime.now.strftime("%d/%m/%Y %H:%M:%S") + "\n")
+  csv_file.write(i.find("georss:point").first.content.gsub(" ", ",") + "," + DateTime.now.strftime("%m/%d/%Y %H:%M:%S") + "\n")
 end
 
 # feed = RSS::Parser.parse(f, false)
